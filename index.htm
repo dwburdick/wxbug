@@ -3,5 +3,33 @@
 <head>
 </head>
 <body>
+
+<div id="weatherdwb" style="width: 300px; background-color: #AC7CFA">
+	<p>Littleton weather</p>
+
+	<div id="city"></div>
+	<div id="temp"></div>
+
+	<p>Powered by WeatherUnderground</p>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+  $.ajax({
+  url : "http://api.wunderground.com/api/22e5ba895213542e/geolookup/conditions/q/CO/Littleton.json",
+  dataType : "jsonp",
+  success : function(parsed_json) {
+  var location = parsed_json['location']['city'];
+  var temp_f = parsed_json['current_observation']['temp_f'];
+  var formattedTemp = "<p>" + temp_f + "</p>";
+  var formattedCity = "<p>" + location + "</p>";
+  $("#city").append(formattedCity);
+  $("#temp").append(formattedTemp);
+  }
+  });
+});
+</script>
+
 </body>
 </html>
